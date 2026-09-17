@@ -46,7 +46,7 @@ void Viewer::updateBS()
 
 ## Démo
 
-![Vidéo](docs/demo.mp4)
+![Gif](docs/demo.gif)
 
 ## Compilation
 
