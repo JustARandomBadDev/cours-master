@@ -3,8 +3,8 @@
 #include <cmath>
 
 const float SIZE = 1.f;
-const float DETAILS = 120.f;
-const int REPEAT = 240;
+const float DETAILS = 12.f;
+const int REPEAT = 24;
 const float STEP = SIZE / DETAILS;
 const float ANGLE = M_PI*2/REPEAT;
 
@@ -20,6 +20,7 @@ void Viewer::draw()
     int colorIndex = 2;
 
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 
     glBegin(GL_TRIANGLES);
         for (float angle = 0.f; angle < M_PI*2-ANGLE*0.5f; angle+=ANGLE) {
@@ -66,7 +67,7 @@ void Viewer::drawTriangle(Point p1, Point p2, Point p3) {
 
 Point Viewer::calculatePoint(float t) {
     return {
-        static_cast<float>(10.f + 4.f * sin(t*M_PI*2)),
+        static_cast<float>(4.f * sin(t*M_PI*2) + 10.f),
         static_cast<float>(4.f * cos(t*M_PI*2)),
         0.f
     };

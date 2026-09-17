@@ -1,3 +1,5 @@
 **/build/
 **/.cache
 **/.qglviewer.xml
+**/.clangd
+**/.DS_Store
