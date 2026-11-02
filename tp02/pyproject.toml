@@ -1,0 +1,9 @@
+[project]
+name = "tp02"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10,<4",
+    "numpy>=2.2,<3",
+    "scikit-learn>=1.7,<2",
+]

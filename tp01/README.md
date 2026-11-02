@@ -1,44 +1,57 @@
-# TP01 - Read and Manipulate Mocap Data
+# TP02 - Motion Descriptors
+
+## Run
+
+### Animation
+
+```bash
+python src/main.py
+```
+
+### Stats
+
+```bash
+python src/stats.py
+```
 
 ## Parsing
 
-Les fichiers `.tsv` contiennent d'abord plusieurs lignes de métadonnées, puis la liste des markers, puis les positions `X Y Z` pour chaque frame.
+Le parser gère toujours les fichiers de markers, mais il peut aussi lire les fichiers de squelette `_s_`.
 
-J'ai donc fait un parser qui lit le fichier, récupère les noms des markers, puis stocke chaque frame sous la forme :
+Pour chaque articulation et chaque frame, il récupère une position `(X, Y, Z)` et une orientation en quaternion `(QX, QY, QZ, QW)`. Une frame de squelette est donc stockée comme ça :
 
 ```python
 {
-    "HeadL": (x, y, z),
-    "HeadTop": (x, y, z),
+    "Hips": ((x, y, z), (qx, qy, qz, qw)),
+    "Spine": ((x, y, z), (qx, qy, qz, qw)),
     ...
 }
 ```
 
-## Calcul des positions moyennes
+## Skeleton
 
-J'ai utilisé une seule fonction `average_position()` qui prend :
+Les articulations sont définis dans `bones.py`. `Skeleton` utilise ces liens pour construire un petit volume 3D entre chaque paire d'articulations.
 
-* une liste de frames ;
-* une liste de markers.
+Vu que les positions des fichiers sont en millimètres, lles sont converties en mètres, recentrées par rapport à la position de `Hips`, puis les axes sont adaptés pour l'affichage.
 
-Ça permet de gérer avec la même fonction :
+Dans `main.py`, les fichiers sont d'abord récupérés avec le scraper. Le premier fichier de squelette trouvé est parsé puis affiché et animé avec le renderer OpenGL. L'animation est jouée à 200 frames par seconde, ce qui correspond à la fréquence des séquences testées.
 
-* un marker ;
-* une partie du corps ;
-* tout le corps ;
-* une seule frame ;
-* tout le mouvement.
+## Motion descriptors
 
-Par exemple, pour une seule frame il suffit de passer :
+Le fichier `stats.py` parcourt tous les fichiers de squelette disponibles. Il lit leur fréquence d'acquisition et utilise les positions converties en mètres.
 
-```python
-[data[100]]
-```
+### Low-level
 
-et pour tout le mouvement :
+* la vitesse
+* l'accélération
+* le jerk
 
-```python
-data
-```
+### High-level
 
-La position moyenne est calculée simplement en faisant la moyenne des coordonnées `X`, `Y` et `Z` de tous les markers sélectionnés.
+* la quantité de mouvement, avec la somme des vitesses des articulations
+* la vitesse du centroïde de toutes les articulations
+* le volume de la boîte englobante du squelette
+
+## Statistics
+
+Pour chaque séquence et chaque descripteur, le programme affiche la moyenne, le minimum, le maximum et la médiane sur toutes les frames.
