@@ -10,16 +10,17 @@ TSV_DIR = Path("assets/tsv")
 
 
 def get_frequency(path: Path) -> float:
-    file = open(path, "r")
-
-    for line in file:
-        if line.startswith("FREQUENCY"):
-            return float(line.split("\t")[1])
+    with open(path, "r") as file:
+        for line in file:
+            if line.startswith("FREQUENCY"):
+                return float(line.split("\t")[1])
 
     return 0.0
 
 
-def compute_stats(path: Path) -> None:
+def compute_descriptors(
+    path: Path,
+) -> tuple[list[str], np.ndarray, float, dict[str, np.ndarray]]:
     parser = TsvParser(path)
     frames = cast(list[SkeletonFrame], parser.parse())
 
@@ -62,6 +63,12 @@ def compute_stats(path: Path) -> None:
         "centroid_speed": centroid_speed,
         "bounding_box_volume": bounding_box_volume,
     }
+
+    return bones, positions, frequency, descriptors
+
+
+def compute_stats(path: Path) -> None:
+    _, _, _, descriptors = compute_descriptors(path)
 
     print()
     print(path.stem)

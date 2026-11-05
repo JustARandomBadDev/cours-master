@@ -1,0 +1,16 @@
+[project]
+name = "motion-descriptors"
+version = "0.1.0"
+description = "INF3002 - Practice 2: motion descriptors"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4==4.15.0",
+    "glfw==2.11.0",
+    "matplotlib==3.11.2",
+    "moderngl==5.13.0",
+    "numpy==2.4.6",
+    "pyglm==2.8.3",
+]
+
+[tool.uv]
+package = false

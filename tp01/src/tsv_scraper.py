@@ -15,7 +15,7 @@ def download_tsv(url: str, dir: Path) -> None:
         or urlparse(link["href"]).path.lower().endswith(".mp4") # type: ignore
     }
 
-    dir.mkdir(exist_ok=True)
+    dir.mkdir(parents=True, exist_ok=True)
 
     print(f"{len(file_urls)} found.")
 
@@ -29,3 +29,9 @@ def download_tsv(url: str, dir: Path) -> None:
 
         print(f"Download : {filename}")
         urllib.request.urlretrieve(file_url, destination)
+
+if __name__ == "__main__":
+    download_tsv(
+        "https://share-irisa.univ-ubs.fr/mocap/pub/b8f0-9d51-798e-8c2c-f936-a32a-2687-fab0/MiS/TSV/",
+        Path("assets/tsv"),
+    )
