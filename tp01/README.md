@@ -77,7 +77,7 @@ Le problème reste que ces critères ne correspondent pas forcément à une vér
 
 ## Résultats
 
-Les statistiques suivantes correspondent à la séquence représentative d'Aline Larboulette en marche normale.
+Les statistiques d'Aline Larboulette en marche normale.
 
 | Descripteur | Moyenne | Minimum | Maximum | Médiane |
 | --- | ---: | ---: | ---: | ---: |
@@ -89,14 +89,6 @@ Les statistiques suivantes correspondent à la séquence représentative d'Aline
 | Volume englobant (m³) | 0.303 | 0.134 | 0.568 | 0.286 |
 
 ![Évolution temporelle des descripteurs](assets/plots/descripteurs_temps.png)
-
-La tension est calculée pour chaque frame, moyennée par fenêtres d'une seconde, puis moyennée sur la séquence complète. Les valeurs globales de chaque séquence servent à comparer les sujets.
-
-| Granularité | Valeurs | Moyenne | Minimum | Maximum | Médiane |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Frame | 1571 | 0.189 | 0.146 | 0.232 | 0.187 |
-| Fenêtre de 1 s | 8 | 0.190 | 0.168 | 0.210 | 0.184 |
-| Séquence complète | 1 | 0.189 | 0.189 | 0.189 | 0.189 |
 
 ![Tension à différentes granularités](assets/plots/tension_temps.png)
 
